@@ -17,6 +17,14 @@
       <%#= link_to 'Back', root_path, class: "btn-solid" %>
     </div>
   </div>
+<div
+  id="map"
+  style="width: 100%;
+  height: 40vh;"
+  data-markers="<%= @markers.to_json %>"
+  data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
+></div>
+
 
   <div class="container heroes-container mt-5 pb-5">
     <% @hotels.each do |hotel| %>
@@ -31,10 +39,15 @@
               <p id="text"><%= hotel.address %></p>
             </div>
             <h2 class="card-trip-pricing">$<%= link_to number_with_precision(superhero.stars, :precision => 2, :delimiter => ',') %></h2>
-            <%= cl_image_tag hotel.user.photo, class: "card-trip-user avatar-bordered" %>
-          </div>
+
         </div>
 
       </div>
     <% end %>
+
+
+  </div>
+</div>
+
+
   </div>
