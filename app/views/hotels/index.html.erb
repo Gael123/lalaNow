@@ -1,0 +1,40 @@
+
+<div class="show-page">
+  <div class="show-banner">
+    <div class="show-text">
+      <h1 class="my-1">Search hotels</h1>
+      <h5 class="mb-5">Find a <strong>Hotel</strong> near you</h5>
+      <!-- Search for superheroes -->
+      <%= form_tag hotels_path, method: :get do %>
+        <%= text_field_tag :query,
+          params[:query],
+          class: "form-control search-form",
+          placeholder: "Find a hotel"
+        %>
+        <%= submit_tag "Search", class: "my-4 btn-solid btn-clean-border" %>
+      <% end %>
+      <!-- Commented out "Back" button -->
+      <%#= link_to 'Back', root_path, class: "btn-solid" %>
+    </div>
+  </div>
+
+  <div class="container heroes-container mt-5 pb-5">
+    <% @hotels.each do |hotel| %>
+      <div class="hero-card mb-2">
+
+        <div class="card-trip" style="position: relative;">
+          <%= link_to "", hotel_path(hotel), class: "card-clickable" %>
+
+          <div class="card-trip-infos">
+            <div>
+              <h2><%= link_to hotel.name, hotel%></h2>
+              <p id="text"><%= hotel.address %></p>
+            </div>
+            <h2 class="card-trip-pricing">$<%= link_to number_with_precision(superhero.stars, :precision => 2, :delimiter => ',') %></h2>
+            <%= cl_image_tag hotel.user.photo, class: "card-trip-user avatar-bordered" %>
+          </div>
+        </div>
+
+      </div>
+    <% end %>
+  </div>
