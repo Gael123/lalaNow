@@ -16,6 +16,20 @@ const buildMap = () => {
 
   });
 }
+const addControl = (map) =>{
+map.addControl(
+new mapboxgl.GeolocateControl({
+positionOptions: {
+enableHighAccuracy: true
+},
+trackUserLocation: true
+})
+);
+
+
+}
+
+
 
 const addMarkersTo = (map, markers) => {
 
@@ -46,13 +60,16 @@ const initMapbox = () => {
   if (mapElement) {
     // Build map
     const map = buildMap();
-
+    // const addControl = addControl(map);
     // Add Markers
     const markers = JSON.parse(mapElement.dataset.markers);
     addMarkersTo(map, markers);
 
     // Fit to markers
     fitMapToMarkers(map, markers);
+     addControl(map);
+
   }
+
 };
 export { initMapbox };
