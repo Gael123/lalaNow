@@ -36,11 +36,11 @@ const addMarkersTo = (map, markers) => {
   });
 }
 
-// const fitMapToMarkers = (map, markers) => {
-//   const bounds = new mapboxgl.LngLatBounds();
-//   markers.forEach(marker => bounds.extend([ marker.lng, marker.lat ]));
-//   map.fitBounds(bounds, { padding: 70, maxZoom: 12, duration: 0 });
-// };
+  const fitMapToMarkers = (map, markers) => {
+  const bounds = new mapboxgl.LngLatBounds();
+  markers.forEach(marker => bounds.extend([ marker.lng, marker.lat ]));
+ map.fitBounds(bounds, { padding: 70, maxZoom: 12, duration: 0 });
+};
 
 const initMapbox = () => {
   if (mapElement) {
@@ -52,7 +52,7 @@ const initMapbox = () => {
     addMarkersTo(map, markers);
 
     // Fit to markers
-    // fitMapToMarkers(map, markers);
+    fitMapToMarkers(map, markers);
   }
 };
 export { initMapbox };
