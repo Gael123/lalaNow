@@ -9,7 +9,10 @@ def index
     @markers = @hotels.map do |hotel|
       {
         lat: hotel.latitude,
-        lng: hotel.longitude
+        lng: hotel.longitude,
+        infoWindow: { content: render_to_string(partial: "/hotels/map_box", locals: { hotel: hotel }) },
+        id: flat.id
+
       }
     end
   end
@@ -29,4 +32,4 @@ def hotel_params
 end
 
 end
-9
+

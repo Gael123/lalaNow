@@ -31,30 +31,52 @@ trackUserLocation: true
 
 
 const addMarkersTo = (map, markers) => {
-
+const mapMarkers = []
   markers.forEach((marker) => {
     // Create a HTML element for your custom marker
-    const element = document.createElement('div');
-    element.className = 'marker';
-    element.style.backgroundImage = `url('${marker.image_url}')`;
-    element.style.backgroundPosition = 'center';
-    element.style.backgroundRepeat = 'no-repeat';
-    element.style.backgroundSize = 'contain';
-    element.style.width = '35px';
-    element.style.height = '35px';
 
-    new mapboxgl.Marker(element)
+     const popup = new mapboxgl.Popup().setHTML(marker.infoWindow);
+
+
+     const newMarker = new mapboxgl.Marker()
       .setLngLat([ marker.lng, marker.lat ])
+      .setPopup(popup)
       .addTo(map);
+      mapMarker.push(newMarker)
+      mapMarkers.push(newMarker)
+      // We use the "getElement" funtion provided by mapbox-gl to access to the marker's HTML an set an id
+      newMarker.getElement().dataset.markerId = marker.id;
+      // Put a microphone on the new marker listening for a mouseenter event
+      newMarker.getElement().addEventListener('mouseenter', (e) => toggleCardHighlighting(e) );
+      // We put a microphone on listening for a mouseleave event
+      newMarker.getElement().addEventListener('mouseleave', (e) => toggleCardHighlighting(e) );
 
   });
 }
 
   const fitMapToMarkers = (map, markers) => {
   const bounds = new mapboxgl.LngLatBounds();
+  let NorthWest = bounds.getNorthWest()
+    let West = bounds.getWest()
   markers.forEach(marker => bounds.extend([ marker.lng, marker.lat ]));
  map.fitBounds(bounds, { padding: 70, maxZoom: 12, duration: 0 });
 };
+
+const openInfoWindow = (markers) => {
+  // Select all cards
+  const cards = document.querySelectorAll('.card');
+  cards.forEach((card, index) => {
+    // Put a microphone on each card listening for a mouseenter event
+    card.addEventListener('mouseenter', () => {
+      // Here we trigger the display of the corresponding marker infoWindow with the "togglePopup" function provided by mapbox-gl
+      markers[index].togglePopup();
+    });
+    // We also put a microphone listening for a mouseleave event to close the modal when user doesn't hover the card anymore
+    card.addEventListener('mouseleave', () => {
+      markers[index].togglePopup();
+    });
+  });
+}
 
 const initMapbox = () => {
   if (mapElement) {
@@ -68,6 +90,13 @@ const initMapbox = () => {
     // Fit to markers
     fitMapToMarkers(map, markers);
      addControl(map);
+      openInfoWindow(mapMarkers);
+      const toggleCardHighlighting = (event) => {
+  // We select the card corresponding to the marker's id
+  const card = document.querySelector(`[data hotel-id="${event.currentTarget.dataset.markerId}"]`);
+  // Then we toggle the class "highlight github" to the card
+  card.classList.toggle('highlight');
+}
 
   }
 
