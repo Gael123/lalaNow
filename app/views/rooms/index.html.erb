@@ -1,0 +1,20 @@
+  <% @rooms.each do |room| %>
+      <!-- <div class="hero-card mb-2">
+
+        <div class="card-trip" style="position: relative;"> -->
+          <%= link_to "", hotel_path(hotel), class: "card-clickable" %>
+
+          <!-- <div class="card-trip-infos">
+            <div> -->
+              <h2><%= link_to hotel.name, hotel%></h2>
+              <p id="text"><%= room.description %></p>
+               <p id="text"><%= room.capacity %></p>
+               <p>Amount: <%= humanized_money_with_symbol(room.price) %></p>
+
+            <!-- </div> -->
+            <h2 class="card-trip-pricing">$<%= link_to number_with_precision(hotel.stars, :precision => 2, :delimiter => ',') %></h2>
+         <%= link_to "", room_path(room), class: "card-clickable" %>
+        <!-- </div> -->
+
+      <!-- </div> -->
+    <% end %>

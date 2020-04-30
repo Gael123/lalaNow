@@ -1,15 +1,32 @@
 
-<div class="show-container" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('<%= cl_image_path @superhero.photo, crop: :fill %>');">
+<div class="show-container" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('<%= cl_image_path @hotel.photo, crop: :fill %>');">
 
     <div class="show-info">
       <h1><%= @hotel.name %></h1>
         <h5>$<%= @hotel.address %> </h5>
         <p class="mt-4"><%= @hotel.stars%></p>
-        <a href="#location-map" class="map-link"><p class="mb-5"><i class="fas fa-map-marker-alt mr-2", style="color: #e62328;"></i><%= @superhero.location %></p></a>
+        <a href="#location-map" class="map-link"><p class="mb-5"><i class="fas fa-map-marker-alt mr-2", style="color: #e62328;"></i><%= @hotel.location %></p></a>
         <div>
           <%= link_to 'Back to hotels', hotels_path, class: "btn-ghost"  %>
-
         </div>
     </div>
 </div>
+<div class="container-map" id="location-map">
+  <h1 style="padding-left: 140px;">Location:</h1>
+  <p style="padding-left: 140px; font-size: 30px;"><%= @hotel.location %></p>
+  <div class="inner-container">
+    <div
+      id="map"
+      style="width: 80%;
+      border-radius: 8px;
+      height: 60vh"
+      data-markers="<%= @marker.to_json %>"
+      data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
+    ></div>
+  </div>
+</div>
 
+</div>
+
+
+  <!-- <div class="container heroes-container mt-5 pb-5"> -->

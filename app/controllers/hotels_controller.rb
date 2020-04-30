@@ -17,8 +17,8 @@ def index
     end
   end
 def show
-    @hotel = Hotel.find(params[:id])
-    @review = Review.new
+    @hotel = Hotel.find(params[:hotel_id])
+    @room = Rooms.new
     @marker =
       [{
         lat: @hotel.latitude,
@@ -26,6 +26,22 @@ def show
         image_url: helpers.asset_url('map-icon.png')
       }]
   end
+
+
+  def new
+    @Hotel = Hotel.new
+  end
+
+  def create
+    @hotel = Hotel.new(hotel_params)
+    @hotel.user = current_user
+    if @hotel.save
+      redirect_to hotel_path(@hotel)
+    else
+      render :new
+    end
+  end
+
 private
 def hotel_params
   params.require(:hotel).permit(:name,:address,:latitude,:longitude,:stars)
