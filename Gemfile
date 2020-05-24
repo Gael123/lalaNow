@@ -35,6 +35,7 @@ gem 'geocoder'
 gem 'carrierwave'
 gem 'redis'
 gem 'uglifier'
+gem 'hotel_beds'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'dotenv-rails', groups: [:development, :test]

@@ -11,14 +11,14 @@ def index
         lat: hotel.latitude,
         lng: hotel.longitude,
         infoWindow: { content: render_to_string(partial: "/hotels/map_box", locals: { hotel: hotel }) },
-        id: flat.id
+        id: hotel.id
 
       }
     end
   end
 def show
-    @hotel = Hotel.find(params[:hotel_id])
-    @room = Rooms.new
+    @hotel = Hotel.find(params[:id])
+    # @room = Rooms.new
     @marker =
       [{
         lat: @hotel.latitude,
@@ -29,7 +29,7 @@ def show
 
 
   def new
-    @Hotel = Hotel.new
+    @hotel = Hotel.new
   end
 
   def create
